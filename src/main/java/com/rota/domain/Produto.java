@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,6 +27,7 @@ public class Produto {
 	
 	@NotEmpty(message = "O grupo do produto deve ser informado.")
 	@JsonInclude(Include.NON_NULL)
+	@ManyToOne
 	private Grupo grupo;
 
 	public Long getId() {
