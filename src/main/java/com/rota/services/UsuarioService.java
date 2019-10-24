@@ -18,12 +18,12 @@ public class UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repo;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder pe;
 
 	public List<Usuario> listar() {
-		return repo.findAll();
+		return (List<Usuario>) repo.findAll();
 	}
 
 	public Usuario salvar(Usuario usuario) {
@@ -36,6 +36,10 @@ public class UsuarioService {
 
 		}
 
+		if (usuario != null) {
+			usuario.setSenha(pe.encode(usuario.getSenha()));
+		}
+		
 		return repo.save(usuario);
 	}
 
@@ -60,6 +64,7 @@ public class UsuarioService {
 
 	public void atualizar(Usuario usuario) {
 		verificarExistencia(usuario);
+		usuario.setSenha(buscar(usuario.getId()).getSenha());
 		repo.save(usuario);
 
 	}

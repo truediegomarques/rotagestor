@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.rota.domain.Cliente;
-import com.rota.services.ClienteService;
+import com.rota.domain.Usuario;
+import com.rota.services.UsuarioService;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteResources {
+@RequestMapping("/usuario")
+public class UsuarioResources {
 
 	@Autowired
-	private ClienteService cServ;
+	private UsuarioService uServ;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> listar() {
-		return ResponseEntity.status(HttpStatus.OK).body(cServ.listar());
+	public ResponseEntity<List<Usuario>> listar() {
+		return ResponseEntity.status(HttpStatus.OK).body(uServ.listar());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Cliente cliente) {
-		cServ.salvar(cliente);
+	public ResponseEntity<Void> salvar(@Valid @RequestBody Usuario usuario) {
+		uServ.salvar(usuario);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
@@ -42,22 +42,22 @@ public class ClienteResources {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
 
-		Cliente cliente = cServ.buscar(id);
+		Usuario usuario = uServ.buscar(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(cliente);
+		return ResponseEntity.status(HttpStatus.OK).body(usuario);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-		cServ.deletar(id);
+		uServ.deletar(id);
 
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Cliente cliente, @PathVariable("id") Long id) {
-		cliente.setId(id);
-		cServ.atualizar(cliente);
+	public ResponseEntity<Void> atualizar(@RequestBody Usuario usuario, @PathVariable("id") Long id) {
+		usuario.setId(id);
+		uServ.atualizar(usuario);
 
 		return ResponseEntity.noContent().build();
 	}

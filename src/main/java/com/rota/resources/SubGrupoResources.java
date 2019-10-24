@@ -15,26 +15,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.rota.domain.Cliente;
-import com.rota.services.ClienteService;
+import com.rota.domain.SubGrupo;
+import com.rota.services.SubGrupoService;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteResources {
+@RequestMapping("/subgrupo")
+public class SubGrupoResources {
 
 	@Autowired
-	private ClienteService cServ;
+	private SubGrupoService sgServ;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> listar() {
-		return ResponseEntity.status(HttpStatus.OK).body(cServ.listar());
+	public ResponseEntity<List<SubGrupo>> listar() {
+		return ResponseEntity.status(HttpStatus.OK).body(sgServ.listar());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Cliente cliente) {
-		cServ.salvar(cliente);
+	public ResponseEntity<Void> salvar(@Valid @RequestBody SubGrupo subGrupo) {
+		sgServ.salvar(subGrupo);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(subGrupo.getId())
+				.toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
@@ -42,22 +43,22 @@ public class ClienteResources {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
 
-		Cliente cliente = cServ.buscar(id);
+		SubGrupo subGrupo = sgServ.buscar(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(cliente);
+		return ResponseEntity.status(HttpStatus.OK).body(subGrupo);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-		cServ.deletar(id);
+		sgServ.deletar(id);
 
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Cliente cliente, @PathVariable("id") Long id) {
-		cliente.setId(id);
-		cServ.atualizar(cliente);
+	public ResponseEntity<Void> atualizar(@RequestBody SubGrupo subGrupo, @PathVariable("id") Long id) {
+		subGrupo.setId(id);
+		sgServ.atualizar(subGrupo);
 
 		return ResponseEntity.noContent().build();
 	}

@@ -1,7 +1,9 @@
 package com.rota.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -15,11 +17,23 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+	private ImplementsUserDetailsService userDetailsService;
+
+	public static final String[] PUBLIC_MATCHERS = { "/cliente", "/cliente/**", "/usuario", "/usuario/**", "/secao",
+			"/secao/**", "/grupo", "/grupo/**", "/subgrupo", "/subgrupo/**", "/preco", "/preco/**", "/produto",
+			"/produto/**" };
+
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable();
-		http.authorizeRequests().anyRequest().authenticated();
+		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+	}
+
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
 	}
 
 	@Bean
@@ -29,9 +43,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 		return source;
 	}
-	
-	@Bean 
-	BCryptPasswordEncoder bCryptPasswordEncoder() {
+
+	@Bean
+	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 

@@ -1,14 +1,16 @@
 package com.rota.domain;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 public class Produto {
@@ -16,19 +18,19 @@ public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NotEmpty(message = "O código do produto deve ser informado.")
-	@JsonInclude(Include.NON_NULL)
 	private String SKU;
-	
+
 	@NotEmpty(message = "A descrição do produto deve ser informada.")
-	@JsonInclude(Include.NON_NULL)
 	private String descricao;
-	
+
 	@NotEmpty(message = "O grupo do produto deve ser informado.")
-	@JsonInclude(Include.NON_NULL)
 	@ManyToOne
-	private Grupo grupo;
+	private SubGrupo subGrupo;
+
+	@OneToMany(mappedBy = "produto", targetEntity = Preco.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<Preco> precos;
 
 	public Long getId() {
 		return id;
@@ -54,12 +56,20 @@ public class Produto {
 		this.descricao = descricao;
 	}
 
-	public Grupo getGrupo() {
-		return grupo;
+	public SubGrupo getSubGrupo() {
+		return subGrupo;
 	}
 
-	public void setGrupo(Grupo grupo) {
-		this.grupo = grupo;
+	public void setSubGrupo(SubGrupo subGrupo) {
+		this.subGrupo = subGrupo;
+	}
+
+	public List<Preco> getPrecos() {
+		return precos;
+	}
+
+	public void setPrecos(List<Preco> precos) {
+		this.precos = precos;
 	}
 
 }

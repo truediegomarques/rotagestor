@@ -8,17 +8,17 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
-public class Grupo {
+public class SubGrupo {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "O código do grupo deve ser informado.")
+	@NotEmpty(message = "O código do subgrupo deve ser informado.")
 	private String codigo;
-	@NotEmpty(message = "A descrição do grupo deve ser informada.")
+	@NotEmpty(message = "A descrição do subgrupo deve ser informada.")
 	private String descricao;
 	@ManyToOne
-	private Secao secao;
+	private Grupo grupo;
 
 	public Long getId() {
 		return id;
@@ -44,12 +44,12 @@ public class Grupo {
 		this.descricao = descricao;
 	}
 
-	public Secao getSecao() {
-		return secao;
+	public Grupo getGrupo() {
+		return grupo;
 	}
 
-	public void setSecao(Secao secao) {
-		this.secao = secao;
+	public void setGrupo(Grupo grupo) {
+		this.grupo = grupo;
 	}
 
 }

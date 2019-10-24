@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.rota.domain.Cliente;
-import com.rota.services.ClienteService;
+import com.rota.domain.Secao;
+import com.rota.services.SecaoService;
 
 @RestController
-@RequestMapping("/cliente")
-public class ClienteResources {
+@RequestMapping("/secao")
+public class SecaoResources {
 
 	@Autowired
-	private ClienteService cServ;
+	private SecaoService sServ;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Cliente>> listar() {
-		return ResponseEntity.status(HttpStatus.OK).body(cServ.listar());
+	public ResponseEntity<List<Secao>> listar() {
+		return ResponseEntity.status(HttpStatus.OK).body(sServ.listar());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody Cliente cliente) {
-		cServ.salvar(cliente);
+	public ResponseEntity<Void> salvar(@Valid @RequestBody Secao secao) {
+		sServ.salvar(secao);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(cliente.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(secao.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
@@ -42,22 +42,22 @@ public class ClienteResources {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
 
-		Cliente cliente = cServ.buscar(id);
+		Secao secao = sServ.buscar(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(cliente);
+		return ResponseEntity.status(HttpStatus.OK).body(secao);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-		cServ.deletar(id);
+		sServ.deletar(id);
 
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody Cliente cliente, @PathVariable("id") Long id) {
-		cliente.setId(id);
-		cServ.atualizar(cliente);
+	public ResponseEntity<Void> atualizar(@RequestBody Secao secao, @PathVariable("id") Long id) {
+		secao.setId(id);
+		sServ.atualizar(secao);
 
 		return ResponseEntity.noContent().build();
 	}
