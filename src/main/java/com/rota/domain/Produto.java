@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Produto {
@@ -25,7 +26,7 @@ public class Produto {
 	@NotEmpty(message = "A descrição do produto deve ser informada.")
 	private String descricao;
 
-	@NotEmpty(message = "O grupo do produto deve ser informado.")
+	@NotNull(message = "O subgrupo não deve estar vazio")
 	@ManyToOne
 	private SubGrupo subGrupo;
 
