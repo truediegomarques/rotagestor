@@ -15,6 +15,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.rota.security.JWTAuthenticationFilter;
+import com.rota.security.JWTAuthorizationFilter;
 import com.rota.security.JWTUtil;
 
 
@@ -31,15 +32,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private JWTUtil jwtUtil;
 
 	public static final String[] PUBLIC_MATCHERS = { "/cliente", "/cliente/**", "/secao", "/secao/**", "/grupo",
-			"/grupo/**", "/subgrupo", "/subgrupo/**", "/preco", "/preco/**", "/produto", "/produto/**", "/funcionario",
-			"/funcionario/**", "/usuario",
-			"/usuario/**" };
+			"/grupo/**", "/subgrupo", "/subgrupo/**", "/preco", "/preco/**", "/produto", "/produto/**"};
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable();
 		http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();;
 		http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+		http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 	}
 
