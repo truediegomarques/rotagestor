@@ -30,7 +30,9 @@ public class Produto {
 	@ManyToOne
 	private SubGrupo subGrupo;
 
-	@OneToMany(mappedBy = "produto", targetEntity = Preco.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "produto", 
+			targetEntity = Preco.class, 
+			fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Preco> precos;
 
 	public Long getId() {

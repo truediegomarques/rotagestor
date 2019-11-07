@@ -12,7 +12,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JWTUtil {
 
 	private String secret = "mafaldacurterock";
-	private Long expiration = 60000L;
+	private Long expiration = 3000000L;
 
 	public String generateToken(String username) {
 		return Jwts.builder().setSubject(username).setExpiration(new Date(System.currentTimeMillis() + expiration))
