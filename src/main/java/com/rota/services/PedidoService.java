@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.rota.domain.ItemPedido;
 import com.rota.domain.Pedido;
+import com.rota.repository.ItemPedidoRepository;
 import com.rota.repository.PedidoRepository;
 import com.rota.services.exceptions.ExisteException;
 import com.rota.services.exceptions.NaoEncontradoException;
@@ -18,20 +20,33 @@ public class PedidoService {
 	@Autowired
 	public PedidoRepository repo;
 
+	@Autowired
+	public ItemPedidoRepository repoItemPedido;
+
 	public List<Pedido> listar() {
 		return repo.findAll();
 	}
 
 	public Pedido salvar(Pedido pedido) {
 		if (pedido.getId() != null) {
-			Optional<Pedido> cl = repo.findById(pedido.getId());
+			Optional<Pedido> ped = repo.findById(pedido.getId());
 
-			if (!cl.isEmpty()) {
+			if (!ped.isEmpty()) {
 				throw new ExisteException("O Pedido já existe!");
 			}
-
 		}
-		return repo.save(pedido);
+
+		List<ItemPedido> itensPedido = pedido.getItens();
+
+		pedido = repo.save(pedido);
+
+		for (ItemPedido x : itensPedido) {
+			x.setPedido(pedido);
+			repoItemPedido.save(x);
+		}
+
+		return repo.findById(pedido.getId()).get();
+
 	}
 
 	public Pedido buscar(Long id) {

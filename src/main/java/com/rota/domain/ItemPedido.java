@@ -23,7 +23,6 @@ public class ItemPedido {
 	private Double quantidade;
 	private Double desconto;
 	private Double total;
-	@NotNull
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@ManyToOne
 	@JoinColumn(name = "pedido_id")
