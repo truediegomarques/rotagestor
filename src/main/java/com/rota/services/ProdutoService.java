@@ -8,7 +8,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.rota.domain.Produto;
+import com.rota.domain.SubGrupo;
 import com.rota.repository.ProdutoRepository;
+import com.rota.repository.SubGrupoRepository;
 import com.rota.services.exceptions.GrupoNaoEncontradoException;
 import com.rota.services.exceptions.ProdutoExisteException;
 import com.rota.services.exceptions.ProdutoNaoEncontradoException;
@@ -19,10 +21,19 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository repo;
 
+	@Autowired
+	private SubGrupoRepository repoSB;
+
 	public List<Produto> listar() {
 		return repo.findAll();
 	}
-	
+
+	public List<Produto> listarPorSubGrupo(SubGrupo sb) {
+		Optional<SubGrupo> subGrupo = repoSB.findById(sb.getId());
+
+		return repo.listarPorSubGrupo(subGrupo.get());
+	}
+
 	public Produto salvar(Produto produto) {
 		if (produto.getId() != null) {
 			Optional<Produto> prod = repo.findById(produto.getId());
@@ -53,7 +64,7 @@ public class ProdutoService {
 		}
 
 	}
-	
+
 	public void atualizar(Produto produto) {
 		verificarExistencia(produto);
 		repo.save(produto);
@@ -63,5 +74,5 @@ public class ProdutoService {
 	private void verificarExistencia(Produto produto) {
 		buscar(produto.getId());
 	}
-	
+
 }

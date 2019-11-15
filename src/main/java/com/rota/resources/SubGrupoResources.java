@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.rota.domain.Grupo;
 import com.rota.domain.SubGrupo;
+import com.rota.services.GrupoService;
 import com.rota.services.SubGrupoService;
 
 @RestController
@@ -25,9 +27,19 @@ public class SubGrupoResources {
 	@Autowired
 	private SubGrupoService sgServ;
 
+	@Autowired
+	private GrupoService gServ;
+
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<List<SubGrupo>> listar() {
 		return ResponseEntity.status(HttpStatus.OK).body(sgServ.listar());
+	}
+
+	@RequestMapping(value = "grupo/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> buscarPorGrupo(@PathVariable("id") Long id) {
+
+		Grupo grupo = gServ.buscar(id);
+		return ResponseEntity.status(HttpStatus.OK).body(sgServ.listarPorGrupo(grupo));
 	}
 
 	@RequestMapping(method = RequestMethod.POST)

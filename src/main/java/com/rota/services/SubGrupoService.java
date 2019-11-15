@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import com.rota.domain.Grupo;
 import com.rota.domain.SubGrupo;
+import com.rota.repository.GrupoRepository;
 import com.rota.repository.SubGrupoRepository;
 import com.rota.services.exceptions.ExisteException;
 import com.rota.services.exceptions.NaoEncontradoException;
@@ -18,8 +20,17 @@ public class SubGrupoService {
 	@Autowired
 	private SubGrupoRepository repo;
 
+	@Autowired
+	private GrupoRepository repoG;
+
 	public List<SubGrupo> listar() {
 		return repo.findAll();
+	}
+
+	public List<SubGrupo> listarPorGrupo(Grupo g) {
+		Optional<Grupo> grupo = repoG.findById(g.getId());
+
+		return repo.listarPorSubGrupo(grupo.get());
 	}
 
 	public SubGrupo salvar(SubGrupo subGrupo) {
@@ -52,7 +63,7 @@ public class SubGrupoService {
 		}
 
 	}
-	
+
 	public void atualizar(SubGrupo subGrupo) {
 		verificarExistencia(subGrupo);
 		repo.save(subGrupo);
