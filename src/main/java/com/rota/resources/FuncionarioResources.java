@@ -34,7 +34,8 @@ public class FuncionarioResources {
 	public ResponseEntity<Void> salvar(@Valid @RequestBody Funcionario funcionario) {
 		fServ.salvar(funcionario);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(funcionario.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(funcionario.getId())
+				.toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
@@ -43,6 +44,14 @@ public class FuncionarioResources {
 	public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
 
 		Funcionario funcionario = fServ.buscar(id);
+
+		return ResponseEntity.status(HttpStatus.OK).body(funcionario);
+	}
+
+	@RequestMapping(value = "/login/{login}", method = RequestMethod.GET)
+	public ResponseEntity<?> buscar(@PathVariable("login") String login) {
+
+		Funcionario funcionario = fServ.buscar(login);
 
 		return ResponseEntity.status(HttpStatus.OK).body(funcionario);
 	}

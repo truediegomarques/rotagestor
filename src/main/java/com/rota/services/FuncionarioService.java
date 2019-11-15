@@ -51,6 +51,16 @@ public class FuncionarioService {
 		return funcionario.get();
 	}
 
+	public Funcionario buscar(String login) {
+		Funcionario funcionario = repo.findByLogin(login);
+
+		if (funcionario == null) {
+			throw new NaoEncontradoException("funcionário não encontrado!");
+		}
+
+		return funcionario;
+	}
+
 	public void deletar(Long id) {
 		try {
 			repo.deleteById(id);
