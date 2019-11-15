@@ -18,7 +18,6 @@ public class Finalizador {
 	}
 
 	public Finalizador(Long id, String descricao) {
-		super();
 		this.id = id;
 		this.descricao = descricao;
 	}
