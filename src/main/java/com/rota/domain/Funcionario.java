@@ -30,15 +30,22 @@ public class Funcionario {
 	private String login;
 	@JsonProperty(access = Access.WRITE_ONLY)
 	private String senha;
-
 	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "perfis")
 	private Set<Integer> perfis = new HashSet<>();
+	private Double descontoMaximo;
+	private String telefone;
 
 	public Funcionario() {
 
 	}
 
+	/*
+	 * mantido por causa dos testes 
+	 * remover quando for possível
+	 * 
+	 */
+	
 	public Funcionario(Long id, String nome, String email, String login, String senha) {
 		super();
 		this.id = id;
@@ -94,6 +101,26 @@ public class Funcionario {
 
 	public void addPerfil(Perfil perfil) {
 		this.perfis.add(perfil.getCod());
+	}
+
+	public Double getDescontoMaximo() {
+		return descontoMaximo;
+	}
+
+	public void setDescontoMaximo(Double descontoMaximo) {
+		this.descontoMaximo = descontoMaximo;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+	public void setPerfis(Set<Integer> perfis) {
+		this.perfis = perfis;
 	}
 
 }
