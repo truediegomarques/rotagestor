@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.rota.domain.TituloReceber;
-import com.rota.services.TituloReceberService;
+import com.rota.domain.Filial;
+import com.rota.services.FilialService;
 
 @RestController
-@RequestMapping("/titulo")
-public class TituloResources {
+@RequestMapping("/filial")
+public class FilialResources {
 
 	@Autowired
-	private TituloReceberService trServ;
+	private FilialService fServ;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<TituloReceber>> listar() {
-		return ResponseEntity.status(HttpStatus.OK).body(trServ.listar());
+	public ResponseEntity<List<Filial>> listar() {
+		return ResponseEntity.status(HttpStatus.OK).body(fServ.listar());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody TituloReceber tituloReceber) {
-		trServ.salvar(tituloReceber);
+	public ResponseEntity<Void> salvar(@Valid @RequestBody Filial filial) {
+		fServ.salvar(filial);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tituloReceber.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(filial.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
@@ -42,22 +42,22 @@ public class TituloResources {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
 
-		TituloReceber tituloReceber = trServ.buscar(id);
+		Filial filial = fServ.buscar(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(tituloReceber);
+		return ResponseEntity.status(HttpStatus.OK).body(filial);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-		trServ.deletar(id);
+		fServ.deletar(id);
 
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody TituloReceber tituloReceber, @PathVariable("id") Long id) {
-		tituloReceber.setId(id);
-		trServ.atualizar(tituloReceber);
+	public ResponseEntity<Void> atualizar(@RequestBody Filial filial, @PathVariable("id") Long id) {
+		filial.setId(id);
+		fServ.atualizar(filial);
 
 		return ResponseEntity.noContent().build();
 	}

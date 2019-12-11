@@ -11,7 +11,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Titulo {
+public class TituloReceber {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,15 +26,17 @@ public class Titulo {
 	private Date baixa;
 	@ManyToOne
 	private Cliente cliente;
+	@ManyToOne
+	private Filial filial;
 	private Double valorBruto;
 	private Double desconto;
 	private Double valorLiquido;
 
-	public Titulo() {
+	public TituloReceber() {
 	}
 
-	public Titulo(Long id, Date emissao, Date vencimento, Date pagamento, Date baixa, Cliente cliente,
-			Double valorBruto, Double desconto, Double valorLiquido) {
+	public TituloReceber(Long id, Date emissao, Date vencimento, Date pagamento, Date baixa, Cliente cliente,
+			Double valorBruto, Double desconto, Double valorLiquido, Filial filial) {
 		super();
 		this.id = id;
 		this.emissao = emissao;
@@ -45,6 +47,7 @@ public class Titulo {
 		this.valorBruto = valorBruto;
 		this.desconto = desconto;
 		this.valorLiquido = valorLiquido;
+		this.filial = filial;
 	}
 
 	public Long getId() {
@@ -117,6 +120,14 @@ public class Titulo {
 
 	public void setValorLiquido(Double valorLiquido) {
 		this.valorLiquido = valorLiquido;
+	}
+
+	public Filial getFilial() {
+		return filial;
+	}
+
+	public void setFilial(Filial filial) {
+		this.filial = filial;
 	}
 
 }

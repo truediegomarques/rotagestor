@@ -7,24 +7,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import com.rota.domain.Titulo;
-import com.rota.repository.TituloRepository;
+import com.rota.domain.TituloReceber;
+import com.rota.repository.TituloReceberRepository;
 import com.rota.services.exceptions.ExisteException;
 import com.rota.services.exceptions.NaoEncontradoException;
 
 @Service
-public class TituloService {
+public class TituloReceberService {
 
 	@Autowired
-	private TituloRepository repo;
+	private TituloReceberRepository repo;
 
-	public List<Titulo> listar() {
+	public List<TituloReceber> listar() {
 		return repo.findAll();
 	}
 
-	public Titulo salvar(Titulo titulo) {
+	public TituloReceber salvar(TituloReceber titulo) {
 		if (titulo.getId() != null) {
-			Optional<Titulo> tt = repo.findById(titulo.getId());
+			Optional<TituloReceber> tt = repo.findById(titulo.getId());
 
 			if (!tt.isEmpty()) {
 				throw new ExisteException("O Titulo já existe!");
@@ -34,8 +34,8 @@ public class TituloService {
 		return repo.save(titulo);
 	}
 
-	public Titulo buscar(Long id) {
-		Optional<Titulo> titulo = repo.findById(id);
+	public TituloReceber buscar(Long id) {
+		Optional<TituloReceber> titulo = repo.findById(id);
 
 		if (titulo.isEmpty()) {
 			throw new NaoEncontradoException("Titulo não encontrado!");
@@ -53,13 +53,13 @@ public class TituloService {
 
 	}
 	
-	public void atualizar(Titulo titulo) {
+	public void atualizar(TituloReceber titulo) {
 		verificarExistencia(titulo);
 		repo.save(titulo);
 
 	}
 
-	private void verificarExistencia(Titulo titulo) {
+	private void verificarExistencia(TituloReceber titulo) {
 		buscar(titulo.getId());
 	}
 

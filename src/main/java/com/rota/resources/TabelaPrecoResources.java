@@ -15,26 +15,26 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.rota.domain.TituloReceber;
-import com.rota.services.TituloReceberService;
+import com.rota.domain.TabelaPreco;
+import com.rota.services.TabelaPrecoService;
 
 @RestController
-@RequestMapping("/titulo")
-public class TituloResources {
+@RequestMapping("/tabealPreco")
+public class TabelaPrecoResources {
 
 	@Autowired
-	private TituloReceberService trServ;
+	private TabelaPrecoService tpServ;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<TituloReceber>> listar() {
-		return ResponseEntity.status(HttpStatus.OK).body(trServ.listar());
+	public ResponseEntity<List<TabelaPreco>> listar() {
+		return ResponseEntity.status(HttpStatus.OK).body(tpServ.listar());
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public ResponseEntity<Void> salvar(@Valid @RequestBody TituloReceber tituloReceber) {
-		trServ.salvar(tituloReceber);
+	public ResponseEntity<Void> salvar(@Valid @RequestBody TabelaPreco tabelaPreco) {
+		tpServ.salvar(tabelaPreco);
 
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tituloReceber.getId()).toUri();
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(tabelaPreco.getId()).toUri();
 
 		return ResponseEntity.created(uri).build();
 	}
@@ -42,22 +42,22 @@ public class TituloResources {
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> buscar(@PathVariable("id") Long id) {
 
-		TituloReceber tituloReceber = trServ.buscar(id);
+		TabelaPreco tabelaPreco = tpServ.buscar(id);
 
-		return ResponseEntity.status(HttpStatus.OK).body(tituloReceber);
+		return ResponseEntity.status(HttpStatus.OK).body(tabelaPreco);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> deletar(@PathVariable("id") Long id) {
-		trServ.deletar(id);
+		tpServ.deletar(id);
 
 		return ResponseEntity.noContent().build();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public ResponseEntity<Void> atualizar(@RequestBody TituloReceber tituloReceber, @PathVariable("id") Long id) {
-		tituloReceber.setId(id);
-		trServ.atualizar(tituloReceber);
+	public ResponseEntity<Void> atualizar(@RequestBody TabelaPreco tabelaPreco, @PathVariable("id") Long id) {
+		tabelaPreco.setId(id);
+		tpServ.atualizar(tabelaPreco);
 
 		return ResponseEntity.noContent().build();
 	}
