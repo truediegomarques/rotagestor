@@ -27,6 +27,7 @@ public class Venda {
 	private int loja;
 	private int DavNumero;
 	
+	//teste
 	
 	public int getIdvenda() {
 		return idvenda;
