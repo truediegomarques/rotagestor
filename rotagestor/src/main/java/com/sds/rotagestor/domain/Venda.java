@@ -1,5 +1,7 @@
 package com.sds.rotagestor.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -12,6 +14,7 @@ public class Venda {
 	private int Registro;
 	private float ValorTotal;
 	private int idNumCaixa;
+	private Date DatMov;
 	private int COO;
 	private int ECF;
 	private int NumeroSat;
@@ -55,6 +58,12 @@ public class Venda {
 	public void setIdNumCaixa(int idNumCaixa) {
 		this.idNumCaixa = idNumCaixa;
 	}
+	public Date getDatMov() {
+		return DatMov;
+	}
+	public void setDatMov(Date datMov) {
+		DatMov = datMov;
+	}	
 	public int getCOO() {
 		return COO;
 	}
