@@ -1,87 +1,106 @@
 package com.sds.rotagestor.domain;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
-public class Venda {
+public class Venda implements Serializable{
 	
+	
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	@Id
-	private int idvenda;
-	private int DOC;
-	private int Registro;
-	private float ValorTotal;
-	private int idNumCaixa;
-	private Date DatMov;
-	private int COO;
-	private int ECF;
-	private int NumeroSat;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idvenda;
+	private Integer DOC;
+	private Integer Registro;
+	private BigDecimal valortotal;
+	private Integer idnumcaixa;
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	private Calendar datamov;
+	private Integer COO;
+	private Integer ECF;
+	private Integer numerosat;
 	private String modelo;
-	private float ValorECF;
-	private float ValorNF;
-	private int crz;
-	private float abatimentocupom;
-	private float acrescimocupom;
-	private int loja;
-	private int DavNumero;
+	private BigDecimal ValorECF;
+	private BigDecimal ValorNF;
+	private Integer crz;
+	private BigDecimal abatimentocupom;
+	private BigDecimal acrescimocupom;
+	private Integer loja;
+	private Integer davnumero;
 	
 	//teste
 	
-	public int getIdvenda() {
+	public Integer getIdvenda() {
 		return idvenda;
 	}
-	public void setIdvenda(int idvenda) {
+	public void setIdvenda(Integer idvenda) {
 		this.idvenda = idvenda;
 	}
-	public int getDOC() {
+	public Integer getDOC() {
 		return DOC;
 	}
-	public void setDOC(int dOC) {
+	public void setDOC(Integer dOC) {
 		DOC = dOC;
 	}
-	public int getRegistro() {
+	public Integer getRegistro() {
 		return Registro;
 	}
-	public void setRegistro(int registro) {
+	public void setRegistro(Integer registro) {
 		Registro = registro;
 	}
-	public float getValorTotal() {
-		return ValorTotal;
+	public BigDecimal getValorTotal() {
+		return valortotal;
 	}
-	public void setValorTotal(float valorTotal) {
-		ValorTotal = valorTotal;
+	public void setValorTotal(BigDecimal valorTotal) {
+		valortotal = valorTotal;
 	}
-	public int getIdNumCaixa() {
-		return idNumCaixa;
+	public Integer getIdNumCaixa() {
+		return idnumcaixa;
 	}
-	public void setIdNumCaixa(int idNumCaixa) {
-		this.idNumCaixa = idNumCaixa;
+	public void setIdNumCaixa(Integer idNumCaixa) {
+		this.idnumcaixa = idNumCaixa;
 	}
-	public Date getDatMov() {
-		return DatMov;
+	public Calendar getDataMov() {
+		return datamov;
 	}
-	public void setDatMov(Date datMov) {
-		DatMov = datMov;
+	public void setDatMov(Calendar dataMov) {
+		datamov = dataMov;
 	}	
-	public int getCOO() {
+	public Integer getCOO() {
 		return COO;
 	}
-	public void setCOO(int cOO) {
+	public void setCOO(Integer cOO) {
 		COO = cOO;
 	}
-	public int getECF() {
+	public Integer getECF() {
 		return ECF;
 	}
-	public void setECF(int eCF) {
+	public void setECF(Integer eCF) {
 		ECF = eCF;
 	}
-	public int getNumeroSat() {
-		return NumeroSat;
+	public Integer getNumeroSat() {
+		return numerosat;
 	}
-	public void setNumeroSat(int numeroSat) {
-		NumeroSat = numeroSat;
+	public void setNumeroSat(Integer numeroSat) {
+		numerosat = numeroSat;
 	}
 	public String getModelo() {
 		return modelo;
@@ -89,47 +108,47 @@ public class Venda {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
-	public float getValorECF() {
+	public BigDecimal getValorECF() {
 		return ValorECF;
 	}
-	public void setValorECF(float valorECF) {
+	public void setValorECF(BigDecimal valorECF) {
 		ValorECF = valorECF;
 	}
-	public float getValorNF() {
+	public BigDecimal getValorNF() {
 		return ValorNF;
 	}
-	public void setValorNF(float valorNF) {
+	public void setValorNF(BigDecimal valorNF) {
 		ValorNF = valorNF;
 	}
-	public int getCrz() {
+	public Integer getCrz() {
 		return crz;
 	}
-	public void setCrz(int crz) {
+	public void setCrz(Integer crz) {
 		this.crz = crz;
 	}
-	public float getAbatimentocupom() {
+	public BigDecimal getAbatimentocupom() {
 		return abatimentocupom;
 	}
-	public void setAbatimentocupom(float abatimentocupom) {
+	public void setAbatimentocupom(BigDecimal abatimentocupom) {
 		this.abatimentocupom = abatimentocupom;
 	}
-	public float getAcrescimocupom() {
+	public BigDecimal getAcrescimocupom() {
 		return acrescimocupom;
 	}
-	public void setAcrescimocupom(float acrescimocupom) {
+	public void setAcrescimocupom(BigDecimal acrescimocupom) {
 		this.acrescimocupom = acrescimocupom;
 	}
-	public int getLoja() {
+	public Integer getLoja() {
 		return loja;
 	}
-	public void setLoja(int loja) {
+	public void setLoja(Integer loja) {
 		this.loja = loja;
 	}
-	public int getDavNumero() {
-		return DavNumero;
+	public Integer getDavNumero() {
+		return davnumero;
 	}
-	public void setDavNumero(int davNumero) {
-		DavNumero = davNumero;
+	public void setDavNumero(Integer davNumero) {
+		davnumero = davNumero;
 	}
 	
 
