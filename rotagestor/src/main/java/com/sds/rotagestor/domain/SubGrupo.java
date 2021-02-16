@@ -10,6 +10,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 @Entity
 @Table(name = "subgrupo")
 public class SubGrupo {
@@ -22,7 +25,9 @@ public class SubGrupo {
 	@ManyToOne
 	@JoinColumn(name = "IDGRUPO")
 	private Grupo grupo;
+	@JsonInclude(content = Include.NON_NULL)
 	private String usuario_alteracao;
+	@JsonInclude(content = Include.NON_NULL)
 	private Date ultima_alteracao;
 
 	public Integer getId() {

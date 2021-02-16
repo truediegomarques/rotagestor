@@ -4,10 +4,16 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 @Entity
 @Table(name = "subgrupo1")
@@ -18,8 +24,14 @@ public class SubGrupo1 {
 	private Integer id;
 	private Integer idsubgrupo1;
 	@Column(length = 45)
-	private String nome; 
-	private String usuario_alteracao; 
+	private String nome;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "idsubgrupo", nullable = true)
+	@JsonInclude(content = Include.NON_NULL)
+	private SubGrupo subgrupo;
+	@JsonInclude(content = Include.NON_NULL)
+	private String usuario_alteracao;
+	@JsonInclude(content = Include.NON_NULL)
 	private Date ultima_alteracao;
 	
 	public Integer getId() {
@@ -51,6 +63,12 @@ public class SubGrupo1 {
 	}
 	public void setUltima_alteracao(Date ultima_alteracao) {
 		this.ultima_alteracao = ultima_alteracao;
+	}
+	public SubGrupo getSubgrupo() {
+		return subgrupo;
+	}
+	public void setSubgrupo(SubGrupo subgrupo) {
+		this.subgrupo = subgrupo;
 	} 
 	
 
