@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-RotagestorApplication<rotagestorgestor>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "com.sds.rotagestor.RotagestorApplication",
+            "projectName": "rotagestorgestor",
+            "args": ""
+        }
+    ]
+}

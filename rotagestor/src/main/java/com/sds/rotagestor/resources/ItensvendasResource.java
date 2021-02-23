@@ -1,5 +1,8 @@
 package com.sds.rotagestor.resources;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,14 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sds.rotagestor.domain.Itensvenda;
 import com.sds.rotagestor.repository.ItensvendasRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping(value = "/itensvendas")
 public class ItensvendasResource {
-	
+
 	@Autowired
 	private ItensvendasRepository ivr;
-	
+
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Itensvenda> listar() {
 		return ivr.findAll();
@@ -45,5 +49,17 @@ public class ItensvendasResource {
 		iv.setIdItensVenda(id);
 		ivr.save(iv);
 	}
+
+	@RequestMapping(value = "/periodo", method = RequestMethod.GET)
+	public List<Itensvenda> listarPeriodo(
+			@RequestParam(value = "dtinicio", defaultValue = "1950-01-01") String dtinicio,
+			@RequestParam(value = "dtfim", defaultValue = "1950-01-01") String dtfim) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date d1 = sdf.parse(dtinicio);
+		Date d2 = sdf.parse(dtfim);
+
+		return ivr.periodo(d1,d2);
+	}
+
 
 }
