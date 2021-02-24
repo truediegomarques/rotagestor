@@ -11,7 +11,6 @@ public class TotalPorProduto {
         this.total = total;
     }
 
-    
     public Integer getId() {
         return id;
     }
@@ -27,8 +26,5 @@ public class TotalPorProduto {
     public void setTotal(BigDecimal total) {
         this.total = total;
     }
-
-   
-
     
 }
