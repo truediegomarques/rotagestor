@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sds.rotagestor.domain.Itensvenda;
 import com.sds.rotagestor.domain.uteis.TotalPorProduto;
+import com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1;
 import com.sds.rotagestor.repository.ItensvendasRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -62,16 +63,15 @@ public class ItensvendasResource {
 		return ivr.periodo(d1,d2);
 	}
 
-	@RequestMapping(value = "/periodoTotal", method = RequestMethod.GET)
-	public List<TotalPorProduto> listarPeriodoTotal(
+	@RequestMapping(value = "/periodototalsubgrupo1", method = RequestMethod.GET)
+	public List<TotalPorSubGrupo1> listarPeriodoSubgrupo1(
 			@RequestParam(value = "dtinicio", defaultValue = "1950-01-01") String dtinicio,
 			@RequestParam(value = "dtfim", defaultValue = "1950-01-01") String dtfim) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = sdf.parse(dtinicio);
 		Date d2 = sdf.parse(dtfim);
 
-		return ivr.periodoTotalProduto(d1,d2);
+		return ivr.periodoTotalSubgrupo1(d1,d2);
 	}
-
 
 }

@@ -15,6 +15,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -50,7 +52,7 @@ import javax.persistence.TemporalType;
 		@NamedQuery(name = "Itensvenda.findByValorUnitarioProduto", query = "SELECT i FROM Itensvenda i WHERE i.valorUnitarioProduto = :valorUnitarioProduto"),
 		@NamedQuery(name = "Itensvenda.findByCustoProduto", query = "SELECT i FROM Itensvenda i WHERE i.custoProduto = :custoProduto"),
 		@NamedQuery(name = "Itensvenda.findByCustoVenda", query = "SELECT i FROM Itensvenda i WHERE i.custoVenda = :custoVenda"),
-		@NamedQuery(name = "Itensvenda.findByIdProduto", query = "SELECT i FROM Itensvenda i WHERE i.idProduto = :idProduto"),
+		//@NamedQuery(name = "Itensvenda.findByIdProduto", query = "SELECT i FROM Itensvenda i WHERE i.idProduto = :idProduto"),
 		@NamedQuery(name = "Itensvenda.findByNsu", query = "SELECT i FROM Itensvenda i WHERE i.nsu = :nsu"),
 		@NamedQuery(name = "Itensvenda.findByCoo", query = "SELECT i FROM Itensvenda i WHERE i.coo = :coo"),
 		@NamedQuery(name = "Itensvenda.findByHoraCupom", query = "SELECT i FROM Itensvenda i WHERE i.horaCupom = :horaCupom"),
@@ -126,8 +128,9 @@ public class Itensvenda implements Serializable {
 	@Column(name = "custovenda")
 	private BigDecimal custoVenda;
 	//ver isso aqui
-	@Column(name = "idproduto")
-	private Integer idProduto;
+	@ManyToOne
+	@JoinColumn(name = "idproduto")
+	private Produto produto;
 	@Column(name = "nsu")
 	private Integer nsu;
 	@Column(name = "coo")
