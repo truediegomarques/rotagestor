@@ -8,7 +8,6 @@ package com.sds.rotagestor.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -16,7 +15,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -57,7 +58,7 @@ import org.hibernate.annotations.Type;
     @NamedQuery(name = "Produto.findByReferencia", query = "SELECT p FROM Produto p WHERE p.referencia = :referencia"),
     @NamedQuery(name = "Produto.findByIdGrupo", query = "SELECT p FROM Produto p WHERE p.idGrupo = :idGrupo"),
     @NamedQuery(name = "Produto.findByIdSubGrupo", query = "SELECT p FROM Produto p WHERE p.idSubGrupo = :idSubGrupo"),
-    @NamedQuery(name = "Produto.findByIdSubGrupo1", query = "SELECT p FROM Produto p WHERE p.idSubGrupo1 = :idSubGrupo1"),
+    @NamedQuery(name = "Produto.findByIdSubGrupo1", query = "SELECT p FROM Produto p WHERE p.subGrupo1.idsubgrupo1 = :idSubGrupo1"),
     @NamedQuery(name = "Produto.findByIdSituacao", query = "SELECT p FROM Produto p WHERE p.idSituacao = :idSituacao"),
     @NamedQuery(name = "Produto.findByDtCadastro", query = "SELECT p FROM Produto p WHERE p.dtCadastro = :dtCadastro"),
     @NamedQuery(name = "Produto.findByEstMin", query = "SELECT p FROM Produto p WHERE p.estMin = :estMin"),
@@ -220,8 +221,9 @@ public class Produto implements Serializable {
     private Integer idGrupo;
     @Column(name = "idsubgrupo")
     private Integer idSubGrupo;
-    @Column(name = "idsubgrupo1")
-    private Integer idSubGrupo1;
+    @ManyToOne
+    @JoinColumn(name = "idsubgrupo1")
+    private SubGrupo1 subGrupo1;
     @Column(name = "idsituacao")
     private Integer idSituacao;
     @Column(name = "dtcadastro")
@@ -656,13 +658,13 @@ public class Produto implements Serializable {
         this.idSubGrupo = idSubGrupo;
     }
 
-    public Integer getIdSubGrupo1() {
-        return idSubGrupo1;
+    public SubGrupo1 getSubGrupo1() {
+        return subGrupo1;
     }
 
-    public void setIdSubGrupo1(Integer idSubGrupo1) {
-        this.idSubGrupo1 = idSubGrupo1;
-    }
+    public void setSubGrupo1(SubGrupo1 subGrupo1) {
+        this.subGrupo1 = subGrupo1;
+    } 
 
     public Integer getIdSituacao() {
         return idSituacao;
