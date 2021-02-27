@@ -17,8 +17,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,50 +27,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "itensvenda")
-@NamedQueries({ @NamedQuery(name = "Itensvenda.findAll", query = "SELECT i FROM Itensvenda i"),
-		@NamedQuery(name = "Itensvenda.findByIdItensVenda", query = "SELECT i FROM Itensvenda i WHERE i.idItensVenda = :idItensVenda"),
-		@NamedQuery(name = "Itensvenda.findByCupom", query = "SELECT i FROM Itensvenda i WHERE i.cupom = :cupom"),
-		@NamedQuery(name = "Itensvenda.findByCodigoEan", query = "SELECT i FROM Itensvenda i WHERE i.codigoEan = :codigoEan"),
-		@NamedQuery(name = "Itensvenda.findByValor", query = "SELECT i FROM Itensvenda i WHERE i.valor = :valor"),
-		@NamedQuery(name = "Itensvenda.findByQuantidade", query = "SELECT i FROM Itensvenda i WHERE i.quantidade = :quantidade"),
-		@NamedQuery(name = "Itensvenda.findByQuantidadeSaida", query = "SELECT i FROM Itensvenda i WHERE i.quantidadeSaida = :quantidadeSaida"),
-		@NamedQuery(name = "Itensvenda.findByCodigoEanDigitado", query = "SELECT i FROM Itensvenda i WHERE i.codigoEanDigitado = :codigoEanDigitado"),
-		@NamedQuery(name = "Itensvenda.findByQuantidadeDigitada", query = "SELECT i FROM Itensvenda i WHERE i.quantidadeDigitada = :quantidadeDigitada"),
-		@NamedQuery(name = "Itensvenda.findByProdutoDescricao", query = "SELECT i FROM Itensvenda i WHERE i.produtoDescricao = :produtoDescricao"),
-		@NamedQuery(name = "Itensvenda.findByIdVenda", query = "SELECT i FROM Itensvenda i WHERE i.idVenda = :idVenda"),
-		@NamedQuery(name = "Itensvenda.findByEcf", query = "SELECT i FROM Itensvenda i WHERE i.ecf = :ecf"),
-		@NamedQuery(name = "Itensvenda.findByNumeroSat", query = "SELECT i FROM Itensvenda i WHERE i.numeroSat = :numeroSat"),
-		@NamedQuery(name = "Itensvenda.findByModelo", query = "SELECT i FROM Itensvenda i WHERE i.modelo = :modelo"),
-		@NamedQuery(name = "Itensvenda.findByIdScannTechPromocao", query = "SELECT i FROM Itensvenda i WHERE i.idScannTechPromocao = :idScannTechPromocao"),
-		@NamedQuery(name = "Itensvenda.findByDescontoPromocaoPersonalizada", query = "SELECT i FROM Itensvenda i WHERE i.descontoPromocaoPersonalizada = :descontoPromocaoPersonalizada"),
-		@NamedQuery(name = "Itensvenda.findByDescontoItem", query = "SELECT i FROM Itensvenda i WHERE i.descontoItem = :descontoItem"),
-		@NamedQuery(name = "Itensvenda.findByDescontoItemRateado", query = "SELECT i FROM Itensvenda i WHERE i.descontoItemRateado = :descontoItemRateado"),
-		@NamedQuery(name = "Itensvenda.findByLoja", query = "SELECT i FROM Itensvenda i WHERE i.loja = :loja"),
-		@NamedQuery(name = "Itensvenda.findByDatamov", query = "SELECT i FROM Itensvenda i WHERE i.datamov = :datamov"),
-		@NamedQuery(name = "Itensvenda.findByValorUnitarioProduto", query = "SELECT i FROM Itensvenda i WHERE i.valorUnitarioProduto = :valorUnitarioProduto"),
-		@NamedQuery(name = "Itensvenda.findByCustoProduto", query = "SELECT i FROM Itensvenda i WHERE i.custoProduto = :custoProduto"),
-		@NamedQuery(name = "Itensvenda.findByCustoVenda", query = "SELECT i FROM Itensvenda i WHERE i.custoVenda = :custoVenda"),
-		//@NamedQuery(name = "Itensvenda.findByIdProduto", query = "SELECT i FROM Itensvenda i WHERE i.idProduto = :idProduto"),
-		@NamedQuery(name = "Itensvenda.findByNsu", query = "SELECT i FROM Itensvenda i WHERE i.nsu = :nsu"),
-		@NamedQuery(name = "Itensvenda.findByCoo", query = "SELECT i FROM Itensvenda i WHERE i.coo = :coo"),
-		@NamedQuery(name = "Itensvenda.findByHoraCupom", query = "SELECT i FROM Itensvenda i WHERE i.horaCupom = :horaCupom"),
-		@NamedQuery(name = "Itensvenda.findByIdVendedor", query = "SELECT i FROM Itensvenda i WHERE i.idVendedor = :idVendedor"),
-		@NamedQuery(name = "Itensvenda.findBySituacao", query = "SELECT i FROM Itensvenda i WHERE i.situacao = :situacao"),
-		@NamedQuery(name = "Itensvenda.findByAliqPis", query = "SELECT i FROM Itensvenda i WHERE i.aliqPis = :aliqPis"),
-		@NamedQuery(name = "Itensvenda.findByAliqCofins", query = "SELECT i FROM Itensvenda i WHERE i.aliqCofins = :aliqCofins"),
-		@NamedQuery(name = "Itensvenda.findByAliqIcms", query = "SELECT i FROM Itensvenda i WHERE i.aliqIcms = :aliqIcms"),
-		@NamedQuery(name = "Itensvenda.findByAliqIpi", query = "SELECT i FROM Itensvenda i WHERE i.aliqIpi = :aliqIpi"),
-		@NamedQuery(name = "Itensvenda.findByCstIcms", query = "SELECT i FROM Itensvenda i WHERE i.cstIcms = :cstIcms"),
-		@NamedQuery(name = "Itensvenda.findByCstPis", query = "SELECT i FROM Itensvenda i WHERE i.cstPis = :cstPis"),
-		@NamedQuery(name = "Itensvenda.findByCcsApurada", query = "SELECT i FROM Itensvenda i WHERE i.ccsApurada = :ccsApurada"),
-		@NamedQuery(name = "Itensvenda.findByIdOperador", query = "SELECT i FROM Itensvenda i WHERE i.idOperador = :idOperador"),
-		@NamedQuery(name = "Itensvenda.findByOperadorChave", query = "SELECT i FROM Itensvenda i WHERE i.operadorChave = :operadorChave"),
-		@NamedQuery(name = "Itensvenda.findByCcf", query = "SELECT i FROM Itensvenda i WHERE i.ccf = :ccf"),
-		@NamedQuery(name = "Itensvenda.findByAcrescimoItem", query = "SELECT i FROM Itensvenda i WHERE i.acrescimoItem = :acrescimoItem"),
-		@NamedQuery(name = "Itensvenda.findByTabelaPreco", query = "SELECT i FROM Itensvenda i WHERE i.tabelaPreco = :tabelaPreco"),
-		@NamedQuery(name = "Itensvenda.findByDavNumero", query = "SELECT i FROM Itensvenda i WHERE i.davNumero = :davNumero"),
-		@NamedQuery(name = "Itensvenda.findByIdCliente", query = "SELECT i FROM Itensvenda i WHERE i.idCliente = :idCliente"),
-		@NamedQuery(name = "Itensvenda.findByCpfCnpjCupom", query = "SELECT i FROM Itensvenda i WHERE i.cpfCnpjCupom = :cpfCnpjCupom") })
+
 public class Itensvenda implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -360,12 +315,12 @@ public class Itensvenda implements Serializable {
 		this.custoVenda = custoVenda;
 	}
 
-	public Integer getIdProduto() {
-		return idProduto;
+	public Produto getProduto() {
+		return produto;
 	}
 
-	public void setIdProduto(Integer idProduto) {
-		this.idProduto = idProduto;
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Integer getNsu() {

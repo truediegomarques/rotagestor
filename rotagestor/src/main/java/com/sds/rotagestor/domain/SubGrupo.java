@@ -30,6 +30,9 @@ public class SubGrupo {
 	@JsonInclude(content = Include.NON_NULL)
 	private Date ultima_alteracao;
 
+	public SubGrupo() {
+	}
+
 	public Integer getId() {
 		return id;
 	}

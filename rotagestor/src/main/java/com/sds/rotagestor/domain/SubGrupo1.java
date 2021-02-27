@@ -69,7 +69,33 @@ public class SubGrupo1 {
 	}
 	public void setSubgrupo(SubGrupo subgrupo) {
 		this.subgrupo = subgrupo;
-	} 
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idsubgrupo1 == null) ? 0 : idsubgrupo1.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SubGrupo1 other = (SubGrupo1) obj;
+		if (idsubgrupo1 == null) {
+			if (other.idsubgrupo1 != null)
+				return false;
+		} else if (!idsubgrupo1.equals(other.idsubgrupo1))
+			return false;
+		return true;
+	}
+	
 	
 
 }

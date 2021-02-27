@@ -7,9 +7,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity
+@Table(name = "venda")
 public class Venda implements Serializable {
 
 	/**
@@ -175,5 +178,32 @@ public class Venda implements Serializable {
 	public void setDavNumero(Integer davNumero) {
 		davnumero = davNumero;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((idvenda == null) ? 0 : idvenda.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Venda other = (Venda) obj;
+		if (idvenda == null) {
+			if (other.idvenda != null)
+				return false;
+		} else if (!idvenda.equals(other.idvenda))
+			return false;
+		return true;
+	}
+
+	
 
 }
