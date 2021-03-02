@@ -21,16 +21,16 @@ public class Cadastrocaixa implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "IDCadastroCaixa")
+    @Column(name = "IDCadastrocaixa")
     private Integer iDCadastroCaixa;
     @Basic(optional = false)
     @Column(name = "Nome")
     private String nome;
     @Column(name = "Tipo")
     private String tipo;
-    @Column(name = "idTipoLancamento")
+    @Column(name = "idtipolancamento")
     private Integer idTipoLancamento;
-    @Column(name = "IDTipoLancemento")
+    @Column(name = "IDtipolancemento")
     private Integer iDTipoLancemento;
 
     public Cadastrocaixa() {

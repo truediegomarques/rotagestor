@@ -9,7 +9,10 @@ package com.sds.rotagestor.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +21,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,7 +45,8 @@ public class Produto implements Serializable {
     private Integer idProduto;
     @Column(name = "sittrib")
     private Integer sitTrib;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
+    // consider using these annotations to enforce field validation
     @Column(name = "Cofins")
     private BigDecimal cofins;
     @Column(name = "Pis")
@@ -67,8 +72,8 @@ public class Produto implements Serializable {
     @Column(name = "baixarqtdesaida")
     private Boolean baixarQtdeSaida;
     @Lob
-    @Column(name = "Obs",length = 65535, columnDefinition="TEXT")
-    @Type(type="text")
+    @Column(name = "Obs", length = 65535, columnDefinition = "TEXT")
+    @Type(type = "text")
     private String obs;
     @Column(name = "Custo")
     private BigDecimal custo;
@@ -125,8 +130,8 @@ public class Produto implements Serializable {
     @Column(name = "Tipo")
     private String tipo;
     @Lob
-    @Column(name = "infadicional",length = 65535, columnDefinition="TEXT")
-    @Type(type="text")
+    @Column(name = "infadicional", length = 65535, columnDefinition = "TEXT")
+    @Type(type = "text")
     private String infAdicional;
     @Column(name = "ean1")
     private String ean1;
@@ -314,6 +319,9 @@ public class Produto implements Serializable {
     @Column(name = "ultima_alteracao")
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
+
+    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
+    private List<ProdutoEstoque> estoque;
 
     public Produto() {
     }
@@ -533,7 +541,7 @@ public class Produto implements Serializable {
 
     public void setSubGrupo1(SubGrupo1 subGrupo1) {
         this.subGrupo1 = subGrupo1;
-    } 
+    }
 
     public Integer getIdSituacao() {
         return idSituacao;
@@ -1390,6 +1398,14 @@ public class Produto implements Serializable {
         return hash;
     }
 
+    public List<ProdutoEstoque> getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(List<ProdutoEstoque> estoque) {
+        this.estoque = estoque;
+    }
+
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
@@ -1397,7 +1413,8 @@ public class Produto implements Serializable {
             return false;
         }
         Produto other = (Produto) object;
-        if ((this.idProduto == null && other.idProduto != null) || (this.idProduto != null && !this.idProduto.equals(other.idProduto))) {
+        if ((this.idProduto == null && other.idProduto != null)
+                || (this.idProduto != null && !this.idProduto.equals(other.idProduto))) {
             return false;
         }
         return true;
@@ -1407,5 +1424,5 @@ public class Produto implements Serializable {
     public String toString() {
         return "com.rotagestor.engreverse.Produto[ idProduto=" + idProduto + " ]";
     }
-    
+
 }
