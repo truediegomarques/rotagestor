@@ -1,7 +1,6 @@
 package com.sds.rotagestor.domain;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
@@ -33,6 +33,7 @@ public class SubGrupo1 {
 	private String usuario_alteracao;
 	@JsonInclude(content = Include.NON_NULL)
 	private Date ultima_alteracao;
+
 	
 	public Integer getId() {
 		return id;
@@ -71,6 +72,7 @@ public class SubGrupo1 {
 		this.subgrupo = subgrupo;
 	}
 
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -94,8 +96,6 @@ public class SubGrupo1 {
 		} else if (!idsubgrupo1.equals(other.idsubgrupo1))
 			return false;
 		return true;
-	}
-	
-	
+	}	
 
 }

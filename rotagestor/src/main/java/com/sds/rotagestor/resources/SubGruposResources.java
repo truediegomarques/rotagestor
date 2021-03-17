@@ -14,7 +14,7 @@ import com.sds.rotagestor.domain.SubGrupo;
 import com.sds.rotagestor.repository.SubGruposRepository;
 
 @RestController
-@RequestMapping(value = "/subGrupos")
+@RequestMapping(value = "/subgrupos")
 public class SubGruposResources {
 
 	@Autowired

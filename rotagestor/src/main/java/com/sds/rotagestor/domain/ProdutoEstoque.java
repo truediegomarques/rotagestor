@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  *
  * @author diego
@@ -33,6 +36,8 @@ public class ProdutoEstoque implements Serializable {
     @Basic(optional = false)
     @ManyToOne
     @JoinColumn(name = "idproduto")
+    @JsonBackReference
+    @JsonIgnore
     private Produto produto;
     // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
     // consider using these annotations to enforce field validation

@@ -1,8 +1,8 @@
 package com.sds.rotagestor.domain;
 
 import java.util.Date;
-
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,8 +22,8 @@ public class SubGrupo {
 	private Integer id;
 	private Integer idsubgrupo;
 	private String nome;
-	@ManyToOne
-	@JoinColumn(name = "IDGRUPO")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "IDGRUPO", nullable = true)
 	private Grupo grupo;
 	@JsonInclude(content = Include.NON_NULL)
 	private String usuario_alteracao;
