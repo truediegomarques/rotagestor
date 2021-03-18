@@ -34,11 +34,8 @@ public class ProdutoEstoque implements Serializable {
     @Column(name = "idproduto_estoque")
     private Integer idprodutoEstoque;
     @Basic(optional = false)
-    @ManyToOne
-    @JoinColumn(name = "idproduto")
-    @JsonBackReference
-    @JsonIgnore
-    private Produto produto;
+    @Column(name = "idproduto")
+    private int idProduto;
     // @Max(value=?) @Min(value=?)//if you know range of your decimal fields
     // consider using these annotations to enforce field validation
     @Column(name = "estoque_atual")
@@ -134,9 +131,9 @@ public class ProdutoEstoque implements Serializable {
         this.idprodutoEstoque = idprodutoEstoque;
     }
 
-    public ProdutoEstoque(Integer idprodutoEstoque, Produto produto, int idLoja) {
+    public ProdutoEstoque(Integer idprodutoEstoque, Integer idProduto, int idLoja) {
         this.idprodutoEstoque = idprodutoEstoque;
-        this.produto = produto;
+        this.idProduto = idProduto;
         this.idLoja = idLoja;
     }
 
@@ -148,12 +145,12 @@ public class ProdutoEstoque implements Serializable {
         this.idprodutoEstoque = idprodutoEstoque;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Integer getIdProduto() {
+        return idProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setProduto(Integer idProduto) {
+        this.idProduto = idProduto;
     }
 
     public BigDecimal getEstoqueAtual() {

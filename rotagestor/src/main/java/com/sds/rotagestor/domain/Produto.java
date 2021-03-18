@@ -27,8 +27,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import org.hibernate.annotations.Type;
 
 /**
@@ -322,8 +320,8 @@ public class Produto implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date ultimaAlteracao;
 
-    @OneToMany(mappedBy = "produto", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idproduto")
     private List<ProdutoEstoque> estoque;
 
     public Produto() {
