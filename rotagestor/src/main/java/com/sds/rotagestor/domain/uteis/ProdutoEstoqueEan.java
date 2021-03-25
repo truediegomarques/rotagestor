@@ -9,14 +9,18 @@ public class ProdutoEstoqueEan {
     private String unidSaida;
     private BigDecimal venda1;
     private Long ean;
+    private int idLoja;
     private BigDecimal estoqueAtual;
+    
 
-    public ProdutoEstoqueEan(Integer idProduto, String descricao, String unidSaida, BigDecimal venda1, Long ean) {
+    public ProdutoEstoqueEan(Integer idProduto, String descricao, String unidSaida, BigDecimal venda1, Long ean, int idLoja ,BigDecimal estoqueAtual) {
         this.idProduto = idProduto;
         this.descricao = descricao;
         this.unidSaida = unidSaida;
         this.venda1 = venda1;
         this.ean = ean;
+        this.idLoja = idLoja;
+        this.estoqueAtual = estoqueAtual;
     }
 
     public Integer getIdProduto() {
@@ -54,6 +58,15 @@ public class ProdutoEstoqueEan {
     }
     public void setEstoqueAtual(BigDecimal estoqueAtual) {
         this.estoqueAtual = estoqueAtual;
+    }
+
+    public int getIdLoja() {
+        return idLoja;
+    }
+
+    public void setIdLoja(int idLoja) {
+        this.idLoja = idLoja;
     }   
+    
     
 }

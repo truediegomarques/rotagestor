@@ -11,31 +11,17 @@ import org.springframework.data.repository.query.Param;
 
 public interface ProdutosRepository extends JpaRepository<Produto, Integer>{
    
-
-    @Query(value = "SELECT new com.sds.rotagestor.domain.uteis.ProdutoEstoqueEan(p.idProduto, p.descricao, p.unidSaida, p.venda1, p.ean)" +
-    " FROM Produto p WHERE p.idSituacao = 1 AND p.ean = :codbarras", nativeQuery = false)
-    List<ProdutoEstoqueEan> pesquisaPorEan(@Param("codbarras") Long codbarras);
-
-
-
     /**
-     * 
-     *  @Query(value="SELECT  new com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1(p.produto.subGrupo1.subgrupo.grupo.IDGRUPO,p.produto.subGrupo1.subgrupo.grupo.NOME"+
-    ",SUM(p.valor)) FROM  Itensvenda p " +
-    "WHERE  p.datamov  BETWEEN :dtinicio AND :dtfim GROUP BY p.produto.subGrupo1.subgrupo.grupo.IDGRUPO",
-     nativeQuery = false)
-    List<TotalPorSubGrupo1> periodoTotalGrupo(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim);
-     * 
-     rivate Integer idProduto;
-    private String descricao;
-    private String unidSaida;
-    private BigDecimal venda1;
-    private Long ean;
-    private BigDecimal estoqueAtual;
-     * 
-     * 
+    @Query(value = "SELECT new com.sds.rotagestor.domain.uteis.ProdutoEstoqueEan(p.idProduto, p.descricao, p.unidSaida, p.venda1, p.ean)" +
+    " FROM Produto p"+
+    " WHERE p.idSituacao = 1 AND p.ean = :codbarras", nativeQuery = false)
+    List<ProdutoEstoqueEan> pesquisaPorEan(@Param("codbarras") Long codbarras);
      */
 
-
+    @Query(value = "SELECT new com.sds.rotagestor.domain.uteis.ProdutoEstoqueEan(p.idProduto, p.descricao, p.unidSaida, p.venda1, p.ean, e.idLoja, e.estoqueAtual)" +
+    " FROM Produto p"+
+    " INNER JOIN ProdutoEstoque e on e.idProduto = p.idProduto"+ 
+    " WHERE p.idSituacao = 1 AND p.ean = :codbarras AND e.idLoja = :loja", nativeQuery = false)
+    List<ProdutoEstoqueEan> pesquisaPorEan(@Param("codbarras") Long codbarras, @Param("loja") int loja);
 }
     

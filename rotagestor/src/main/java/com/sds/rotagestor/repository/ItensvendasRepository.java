@@ -24,11 +24,24 @@ public interface ItensvendasRepository extends JpaRepository<Itensvenda, Integer
      nativeQuery = false)
     List<TotalPorProduto> periodoTotalProduto(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim);
 
-
-    @Query(value="SELECT  new com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1(p.produto.subGrupo1.idsubgrupo1,p.produto.subGrupo1.nome,SUM(p.valor)) FROM  Itensvenda p " +
-    "WHERE  p.datamov  BETWEEN :dtinicio AND :dtfim GROUP BY p.produto.subGrupo1.idsubgrupo1",
+    
+    @Query(value="SELECT  new com.sds.rotagestor.domain.uteis.TotalPorProduto(p.produto.idProduto,SUM(p.valor))"+
+    " FROM  Itensvenda p" +
+    " WHERE  p.produto.idProduto = :idproduto AND p.datamov  BETWEEN :dtinicio AND :dtfim GROUP BY p.produto.idProduto",
      nativeQuery = false)
-    List<TotalPorSubGrupo1> periodoTotalSubgrupo1(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim);
+    List<TotalPorProduto> periodoTotalProdutoPeriodo(
+        @Param("idproduto") Long idproduto,
+        @Param("dtinicio") Date dtinicio, 
+        @Param("dtfim") Date dtfim);
+
+
+    @Query(value="SELECT  new com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1(p.produto.subGrupo1.idsubgrupo1,p.produto.subGrupo1.nome,SUM(p.valor))"+
+    " FROM  Itensvenda p" +
+    " WHERE  p.datamov BETWEEN :dtinicio AND :dtfim GROUP BY p.produto.subGrupo1.idsubgrupo1",
+     nativeQuery = false)
+    List<TotalPorSubGrupo1> periodoTotalSubgrupo1(
+        @Param("dtinicio") Date dtinicio, 
+        @Param("dtfim") Date dtfim);
 
     @Query(value="SELECT  new com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1(p.produto.subGrupo1.subgrupo.idsubgrupo,p.produto.subGrupo1.subgrupo.nome"+
     ",SUM(p.valor)) FROM  Itensvenda p " +

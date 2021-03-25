@@ -48,30 +48,21 @@ public class ProdutosResource {
 		pr.save(produto);
 	}
 
+	/**
+	 * 
 	@RequestMapping(value = "/pesquisaporean", method = RequestMethod.GET)
 	public List<ProdutoEstoqueEan> pesquisaPorEan(@RequestParam(value = "codbarras", defaultValue = "0") String codbarras){
 		Long e1 = Long.parseLong(codbarras);
 		return pr.pesquisaPorEan(e1);
 	}
+ 	*/
 
-	/**
-	 * 
-	 * 	@RequestMapping(value = "/periodototalgrupo", method = RequestMethod.GET)
-	public List<TotalPorSubGrupo1> listarPeriodoGrupo(
-			@RequestParam(value = "dtinicio", defaultValue = "1950-01-01") String dtinicio,
-			@RequestParam(value = "dtfim", defaultValue = "1950-01-01") String dtfim) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date d1 = sdf.parse(dtinicio);
-		Date d2 = sdf.parse(dtfim);
-
-		return ivr.periodoTotalGrupo(d1,d2);
+	@RequestMapping(value = "/pesquisaporean", method = RequestMethod.GET)
+	public List<ProdutoEstoqueEan> pesquisaPorEan(@RequestParam(value = "codbarras", defaultValue = "0") String codbarras,
+		@RequestParam(value = "loja", defaultValue = "0") String loja){
+		Long e1 = Long.parseLong(codbarras);
+		int l1 = Integer.parseInt(loja);
+		return pr.pesquisaPorEan(e1,l1);
 	}
-
-	 * 
-	 * 
-	 */
-
-
-
 	
 }
