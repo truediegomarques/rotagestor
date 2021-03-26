@@ -72,7 +72,7 @@ public class ItensvendasResource {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = sdf.parse(dtinicio);
 		Date d2 = sdf.parse(dtfim);
-		Long i1 = Long.parseLong(idproduto);
+		Integer i1 = Integer.parseInt(idproduto);
 
 		return ivr.periodoTotalProdutoPeriodo(i1,d1,d2);
 	}

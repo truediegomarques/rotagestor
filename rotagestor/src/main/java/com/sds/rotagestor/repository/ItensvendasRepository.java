@@ -30,7 +30,7 @@ public interface ItensvendasRepository extends JpaRepository<Itensvenda, Integer
     " WHERE  p.produto.idProduto = :idproduto AND p.datamov  BETWEEN :dtinicio AND :dtfim GROUP BY p.produto.idProduto",
      nativeQuery = false)
     List<TotalPorProduto> periodoTotalProdutoPeriodo(
-        @Param("idproduto") Long idproduto,
+        @Param("idproduto") Integer idproduto,
         @Param("dtinicio") Date dtinicio, 
         @Param("dtfim") Date dtfim);
 
