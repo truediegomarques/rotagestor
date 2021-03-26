@@ -50,7 +50,7 @@ public class ProdutosResource {
 
 	/**
 	 * 
-	@RequestMapping(value = "/pesquisaporean", method = RequestMethod.GET)
+	*@RequestMapping(value = "/pesquisaporean", method = RequestMethod.GET)
 	public List<ProdutoEstoqueEan> pesquisaPorEan(@RequestParam(value = "codbarras", defaultValue = "0") String codbarras){
 		Long e1 = Long.parseLong(codbarras);
 		return pr.pesquisaPorEan(e1);
