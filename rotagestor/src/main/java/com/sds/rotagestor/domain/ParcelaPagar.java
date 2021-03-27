@@ -11,10 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 
 import org.hibernate.annotations.Type;
 
@@ -33,9 +38,9 @@ public class ParcelaPagar implements Serializable {
     @Basic(optional = false)
     @Column(name = "idparcelapagar")
     private Integer idParcelaPagar;
-    @Basic(optional = false)
-    @Column(name = "idfornecedor")
-    private int idFornecedor;
+    @ManyToOne
+    @JoinColumn(name = "idfornecedor")
+    private Fornecedor fornecedor;
     @Basic(optional = false)
     @Column(name = "idpagar")
     private int idPagar;
@@ -54,6 +59,7 @@ public class ParcelaPagar implements Serializable {
     @Column(name = "duplicata")
     private String duplicata;
     @Column(name = "bordero")
+    @JsonInclude(value = Include.NON_NULL)
     private Integer bordero;
     @Column(name = "vldesconto")
     private BigDecimal vldesconto;
@@ -65,8 +71,10 @@ public class ParcelaPagar implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date dtPagto;
     @Column(name = "idbanco")
+    @JsonInclude(value = Include.NON_NULL)
     private Integer idBanco;
     @Column(name = "Nocheque")
+    @JsonInclude(value = Include.NON_NULL)
     private Integer noCheque;
     @Column(name = "usuario")
     private String usuario;
@@ -79,6 +87,7 @@ public class ParcelaPagar implements Serializable {
     @Lob
     @Column(name = "codigobarra", length = 65535, columnDefinition="TEXT")
     @Type(type="text")
+    @JsonInclude(value = Include.NON_NULL)
     private String codigobarra;
     @Column(name = "vl_juros")
     private BigDecimal vlJuros;
@@ -93,21 +102,13 @@ public class ParcelaPagar implements Serializable {
     @Lob
     @Column(name = "obs_bordero", length = 65535, columnDefinition="TEXT")
     @Type(type="text")
+    @JsonInclude(value = Include.NON_NULL)
     private String obsBordero;
     @Column(name = "tipopessoaid")
+    @JsonInclude(value = Include.NON_NULL)
     private String tipoPessoaID;
    
     public ParcelaPagar() {
-    }
-
-    public ParcelaPagar(Integer idParcelaPagar) {
-        this.idParcelaPagar = idParcelaPagar;
-    }
-
-    public ParcelaPagar(Integer idParcelaPagar, int idFornecedor, int idPagar) {
-        this.idParcelaPagar = idParcelaPagar;
-        this.idFornecedor = idFornecedor;
-        this.idPagar = idPagar;
     }
 
     public Integer getIdParcelaPagar() {
@@ -118,12 +119,12 @@ public class ParcelaPagar implements Serializable {
         this.idParcelaPagar = idParcelaPagar;
     }
 
-    public int getIdFornecedor() {
-        return idFornecedor;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setIdFornecedor(int idFornecedor) {
-        this.idFornecedor = idFornecedor;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public int getIdPagar() {
