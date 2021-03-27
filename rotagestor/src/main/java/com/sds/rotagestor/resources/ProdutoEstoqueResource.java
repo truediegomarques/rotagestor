@@ -25,19 +25,9 @@ public class ProdutoEstoqueResource {
 		return per.findAll();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public void salvar(@RequestBody ProdutoEstoque produtoEstoque) {
-		per.save(produtoEstoque);
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Optional<ProdutoEstoque> buscar(@PathVariable("id") Integer id) {
 		return per.findById(id);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deletar(@PathVariable("id") Integer id) {
-		per.deleteById(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)

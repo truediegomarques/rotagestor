@@ -25,24 +25,9 @@ public class SubGrupo1sResource {
 		return sb1.findAll();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public void salvar(@RequestBody SubGrupo1 subGrupo1) {
-		sb1.save(subGrupo1);
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Optional<SubGrupo1> buscar(@PathVariable("id") Integer id) {
 		return sb1.findById(id);
 	}
 
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deletar(@PathVariable("id") Integer id) {
-		sb1.deleteById(id);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public void deletar(@RequestBody SubGrupo1 subGrupo1, @PathVariable("id") Integer id) {
-		subGrupo1.setIdsubgrupo1(id);
-		sb1.save(subGrupo1);
-	}
 }

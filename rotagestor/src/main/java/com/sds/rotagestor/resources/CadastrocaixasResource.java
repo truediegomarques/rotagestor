@@ -25,25 +25,9 @@ public class CadastrocaixasResource {
 		return ccr.findAll();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public void salvar(@RequestBody Cadastrocaixa cadastrocaixa) {
-		ccr.save(cadastrocaixa);
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Optional<Cadastrocaixa> buscar(@PathVariable("id") Integer id) {
 		return ccr.findById(id);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deletar(@PathVariable("id") Integer id) {
-		ccr.deleteById(id);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-	public void deletar(@RequestBody Cadastrocaixa cadastrocaixa, @PathVariable("id") Integer id) {
-		cadastrocaixa.setIDCadastroCaixa(id);
-		ccr.save(cadastrocaixa);
 	}
 	
 }

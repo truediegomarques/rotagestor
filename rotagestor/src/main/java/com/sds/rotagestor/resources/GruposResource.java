@@ -25,19 +25,9 @@ public class GruposResource {
 		return gr.findAll();
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
-	public void salvar(@RequestBody Grupo grupo) {
-		gr.save(grupo);
-	}
-
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Optional<Grupo> buscar(@PathVariable("id") Integer id) {
 		return gr.findById(id);
-	}
-
-	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-	public void deletar(@PathVariable("id") Integer id) {
-		gr.deleteById(id);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
