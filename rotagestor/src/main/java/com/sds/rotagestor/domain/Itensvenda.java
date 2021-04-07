@@ -21,6 +21,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
 /**
  *
  * @author diego
@@ -122,8 +125,10 @@ public class Itensvenda implements Serializable {
 	private Integer tabelaPreco;
 	@Column(name = "davnumero")
 	private Integer davNumero;
-	@Column(name = "Idcliente")
-	private Integer idCliente;
+	@ManyToOne
+	@JoinColumn(name = "idcliente")
+	@JsonInclude(value = Include.NON_NULL)
+	private Cliente cliente;
 	@Column(name = "cpfcnpjcupom")
 	private String cpfCnpjCupom;
 
@@ -467,12 +472,12 @@ public class Itensvenda implements Serializable {
 		this.davNumero = davNumero;
 	}
 
-	public Integer getIdCliente() {
-		return idCliente;
+	public Cliente getCliente() {
+		return cliente;
 	}
 
-	public void setIdCliente(Integer idCliente) {
-		this.idCliente = idCliente;
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	public String getCpfCnpjCupom() {

@@ -22,6 +22,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -35,6 +37,9 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @Table(name = "produto")
+@NamedQueries({
+    @NamedQuery(name = "Produto.findByEan", query = "SELECT p FROM Produto p WHERE p.ean = :ean")
+    })
 public class Produto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -323,6 +328,10 @@ public class Produto implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "idproduto")
     private List<ProdutoEstoque> estoque;
+
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "idPRODUTO_PRECO")
+    private List<ProdutoPreco> preco;
 
     public Produto() {
     }
@@ -1405,6 +1414,14 @@ public class Produto implements Serializable {
 
     public void setEstoque(List<ProdutoEstoque> estoque) {
         this.estoque = estoque;
+    }
+
+    public List<ProdutoPreco> getPreco() {
+        return preco;
+    }
+
+    public void setPreco(List<ProdutoPreco> preco) {
+        this.preco = preco;
     }
 
     @Override
