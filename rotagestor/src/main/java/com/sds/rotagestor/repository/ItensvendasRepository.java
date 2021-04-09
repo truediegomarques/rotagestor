@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.sds.rotagestor.domain.Itensvenda;
+import com.sds.rotagestor.domain.uteis.TicketMedio;
 import com.sds.rotagestor.domain.uteis.TotalPorProduto;
 import com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1;
 
@@ -54,5 +55,10 @@ public interface ItensvendasRepository extends JpaRepository<Itensvenda, Integer
     "WHERE  p.datamov  BETWEEN :dtinicio AND :dtfim GROUP BY p.produto.subGrupo1.subgrupo.grupo.IDGRUPO",
      nativeQuery = false)
     List<TotalPorSubGrupo1> periodoTotalGrupo(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim);
+
+    @Query(value="SELECT new com.sds.rotagestor.domain.uteis.TicketMedio(p.loja, count(distinct p.cupom), SUM(p.valor)) FROM  Itensvenda p " +
+    "WHERE p.loja = :lj AND p.datamov BETWEEN :dtinicio AND :dtfim GROUP BY p.loja",
+     nativeQuery = false)
+    List<TicketMedio> ticketMedio(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim,  @Param("lj") int lj);
 
 }

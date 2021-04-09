@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.Itensvenda;
+import com.sds.rotagestor.domain.uteis.TicketMedio;
 import com.sds.rotagestor.domain.uteis.TotalPorProduto;
 import com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1;
 import com.sds.rotagestor.repository.ItensvendasRepository;
@@ -91,5 +92,19 @@ public class ItensvendasResource {
 
 		return ivr.periodoTotalGrupo(d1,d2);
 	}
+
+	@RequestMapping(value = "/ticketmedio", method = RequestMethod.GET)
+	public List<TicketMedio> ticketMedio(
+			@RequestParam(value = "dtinicio", defaultValue = "1950-01-01") String dtinicio,
+			@RequestParam(value = "dtfim", defaultValue = "1950-01-01") String dtfim,
+			@RequestParam(value = "loja", defaultValue = "1") String loja) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date d1 = sdf.parse(dtinicio);
+		Date d2 = sdf.parse(dtfim);
+		int lj1 = Integer.parseInt(loja);
+
+		return ivr.ticketMedio(d1,d2,lj1);
+	}
+
 
 }
