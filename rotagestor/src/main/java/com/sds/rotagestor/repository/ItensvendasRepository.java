@@ -11,6 +11,7 @@ import com.sds.rotagestor.domain.Itensvenda;
 import com.sds.rotagestor.domain.uteis.TicketMedio;
 import com.sds.rotagestor.domain.uteis.TotalPorProduto;
 import com.sds.rotagestor.domain.uteis.TotalPorSubGrupo1;
+import com.sds.rotagestor.domain.uteis.VendaPorCaixa;
 
 
 public interface ItensvendasRepository extends JpaRepository<Itensvenda, Integer> {
@@ -57,8 +58,16 @@ public interface ItensvendasRepository extends JpaRepository<Itensvenda, Integer
     List<TotalPorSubGrupo1> periodoTotalGrupo(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim);
 
     @Query(value="SELECT new com.sds.rotagestor.domain.uteis.TicketMedio(p.loja, count(distinct p.cupom), SUM(p.valor)) FROM  Itensvenda p " +
-    "WHERE p.loja = :lj AND p.datamov BETWEEN :dtinicio AND :dtfim GROUP BY p.loja",
+    "WHERE p.situacao = 'A' AND p.loja = :lj AND p.datamov BETWEEN :dtinicio AND :dtfim GROUP BY p.loja",
      nativeQuery = false)
     List<TicketMedio> ticketMedio(@Param("dtinicio") Date dtinicio, @Param("dtfim") Date dtfim,  @Param("lj") int lj);
 
+    @Query(value="SELECT new com.sds.rotagestor.domain.uteis.VendaPorCaixa(p.loja, p.venda.idnumcaixa, SUM(p.valor)) FROM Itensvenda p "+
+    "WHERE  p.datamov  BETWEEN :dtinicio AND :dtfim AND p.loja = :lj " +
+    "group by p.venda.loja, p.venda.idnumcaixa",
+     nativeQuery = false)
+    List<VendaPorCaixa> vendaPorCaixa(
+        @Param("dtinicio") Date dtinicio, 
+        @Param("dtfim") Date dtfim,  
+        @Param("lj") int lj);
 }

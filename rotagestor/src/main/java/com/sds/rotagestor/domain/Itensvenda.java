@@ -17,12 +17,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+
+import org.springframework.lang.Nullable;
 
 /**
  *
@@ -57,9 +60,9 @@ public class Itensvenda implements Serializable {
 	private BigDecimal quantidadeDigitada;
 	@Column(name = "produtodescricao")
 	private String produtoDescricao;
-	@Basic(optional = false)
-	@Column(name = "idvenda")
-	private int idVenda;
+	@OneToOne
+	@JoinColumn(name = "idvenda")
+	private Venda  venda;
 	@Column(name = "ecf")
 	private Integer ecf;
 	@Column(name = "numerosat")
@@ -128,6 +131,7 @@ public class Itensvenda implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "idcliente")
 	@JsonInclude(value = Include.NON_NULL)
+	@Nullable	
 	private Cliente cliente;
 	@Column(name = "cpfcnpjcupom")
 	private String cpfCnpjCupom;
@@ -139,9 +143,9 @@ public class Itensvenda implements Serializable {
 		this.idItensVenda = idItensVenda;
 	}
 
-	public Itensvenda(Integer idItensVenda, int idVenda) {
+	public Itensvenda(Integer idItensVenda, Venda venda) {
 		this.idItensVenda = idItensVenda;
-		this.idVenda = idVenda;
+		this.venda = venda;
 	}
 
 	public Integer getIdItensVenda() {
@@ -216,12 +220,12 @@ public class Itensvenda implements Serializable {
 		this.produtoDescricao = produtoDescricao;
 	}
 
-	public int getIdVenda() {
-		return idVenda;
+	public Venda getVenda() {
+		return venda;
 	}
 
-	public void setIdVenda(int idVenda) {
-		this.idVenda = idVenda;
+	public void setIdVenda(Venda venda) {
+		this.venda = venda;
 	}
 
 	public Integer getEcf() {
