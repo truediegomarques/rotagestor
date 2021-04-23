@@ -1,5 +1,6 @@
 package com.sds.rotagestor.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,5 +23,10 @@ public class ParcelasPagarService {
 
     public List<ParcelaPagar> listar(){
         return pr.findAll();
+    }
+
+    public List<ParcelaPagar> parcelasAberto(String status, Date dtinicio, Date dtfim){
+        List<ParcelaPagar> obj = pr.parcelaaberto(status, dtinicio, dtfim);
+        return obj;
     }
 }

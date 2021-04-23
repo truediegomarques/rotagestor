@@ -7,9 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.ParcelaPagar;
-import com.sds.rotagestor.repository.ParcelasPagarRepository;
+import com.sds.rotagestor.services.ParcelasPagarService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,27 +22,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class ParcelasPagarResource {
 
 	@Autowired
-	private ParcelasPagarRepository pr;
+	private ParcelasPagarService ps;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ParcelaPagar> listar() {
-		return pr.findAll();
+	public ResponseEntity<?> listar() {
+		List<ParcelaPagar> obj = ps.listar();
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Optional<ParcelaPagar> buscar(@PathVariable("id") Integer id) {
-		return pr.findById(id);
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
+		Optional<ParcelaPagar> obj = ps.buscar(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/parcelasaberto", method = RequestMethod.GET)
-	public List<ParcelaPagar> listarPeriodoGrupo(
+	public ResponseEntity<?> listarPeriodoGrupo(
 			@RequestParam(value = "status", defaultValue = "A") String status,
 			@RequestParam(value = "dtinicio", defaultValue = "1950-01-01") String dtinicio,
 			@RequestParam(value = "dtfim", defaultValue = "1950-01-01") String dtfim) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date d1 = sdf.parse(dtinicio);
 		Date d2 = sdf.parse(dtfim);
-
-		return pr.parcelaaberto(status,d1,d2);
+		List<ParcelaPagar> obj = ps.parcelasAberto(status, d1, d2);
+		return ResponseEntity.ok().body(obj);
 	}
 }
