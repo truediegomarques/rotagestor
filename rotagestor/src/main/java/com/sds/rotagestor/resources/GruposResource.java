@@ -32,4 +32,6 @@ public class GruposResource {
 		return ResponseEntity.ok().body(grupo);
 	}
 
+	
+
 }
