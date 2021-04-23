@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.Fornecedor;
-import com.sds.rotagestor.repository.FornecedoresRepository;
+import com.sds.rotagestor.services.FornecedorService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class FornecedoresResource {
 
 	@Autowired
-	private FornecedoresRepository fr;
+	private FornecedorService fs;
 
 	@RequestMapping(method = RequestMethod.GET)
 	public List<Fornecedor> listar() {
-		return fr.findAll();
+		return fs.listar();
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public Optional<Fornecedor> buscar(@PathVariable("id") Integer id) {
-		return fr.findById(id);
+		return fs.Buscar(id);
 	}
 
 }
