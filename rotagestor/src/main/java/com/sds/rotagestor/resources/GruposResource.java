@@ -7,6 +7,7 @@ import com.sds.rotagestor.domain.Grupo;
 import com.sds.rotagestor.services.GrupoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,13 +21,15 @@ public class GruposResource {
 	private GrupoService gs;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Grupo> listar() {
-		return gs.listar();
+	public ResponseEntity<?> listar() {
+		List<Grupo> grupos = gs.listar();
+		return ResponseEntity.ok().body(grupos);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Optional<Grupo> buscar(@PathVariable("id") Integer id) {
-		return gs.buscar(id);
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
+		Optional<Grupo> grupo = gs.buscar(id);
+		return ResponseEntity.ok().body(grupo);
 	}
 
 }

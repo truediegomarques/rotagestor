@@ -19,7 +19,7 @@ public class FornecedorService {
         return fr.findAll();
     }
 
-    public Optional<Fornecedor> Buscar(Integer id){
+    public Optional<Fornecedor> buscar(Integer id){
         Optional<Fornecedor> obj = fr.findById(id);
         return obj;
     }

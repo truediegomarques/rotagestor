@@ -7,6 +7,7 @@ import com.sds.rotagestor.domain.Cadastrocaixa;
 import com.sds.rotagestor.services.CadastroCaixaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,13 +21,15 @@ public class CadastrocaixasResource {
 	private  CadastroCaixaService ccs;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Cadastrocaixa> listar() {
-		return ccs.listar();
+	public ResponseEntity<?> listar() {
+		List<Cadastrocaixa> caixas = ccs.listar();
+		return ResponseEntity.ok().body(caixas);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Optional<Cadastrocaixa> buscar(@PathVariable("id") Integer id) {
-		return ccs.buscar(id);
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
+		Optional<Cadastrocaixa> caixa =  ccs.buscar(id);
+		return ResponseEntity.ok().body(caixa);
 	}
 	
 }
