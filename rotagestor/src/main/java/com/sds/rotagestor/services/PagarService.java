@@ -23,5 +23,4 @@ public class PagarService {
     public List<Pagar> listar(){
         return pr.findAll();
     }
-
 }
