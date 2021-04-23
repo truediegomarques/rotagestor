@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.Pagar;
-import com.sds.rotagestor.repository.PagarRepository;
+import com.sds.rotagestor.services.PagarService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,16 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class PagarResource {
 
 	@Autowired
-	private PagarRepository pr;
+	private PagarService ps;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Pagar> listar() {
-		return pr.findAll();
+	public ResponseEntity<?> listar() {
+		List<Pagar> obj = ps.listar();
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Optional<Pagar> buscar(@PathVariable("id") Integer id) {
-		return pr.findById(id);
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
+		Optional<Pagar> obj = ps.buscar(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 }
