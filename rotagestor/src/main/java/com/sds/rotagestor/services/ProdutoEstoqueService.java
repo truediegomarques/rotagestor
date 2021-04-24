@@ -7,13 +7,15 @@ import com.sds.rotagestor.domain.ProdutoEstoque;
 import com.sds.rotagestor.repository.ProdutoEstoqueRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProdutoEstoqueService {
 
     @Autowired
 	private ProdutoEstoqueRepository per;
     
-    public Optional<ProdutoEstoque > buscar(Integer id){
+    public Optional<ProdutoEstoque> buscar(Integer id){
         Optional<ProdutoEstoque> obj =  per.findById(id);
         return obj;
     }

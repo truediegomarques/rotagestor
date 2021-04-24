@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.ProdutoPreco;
-import com.sds.rotagestor.repository.ProdutosPrecosRepository;
+import com.sds.rotagestor.services.ProdutoPrecoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,16 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProdutosPrecosResource {
 
 	@Autowired
-	private ProdutosPrecosRepository pp;
+	private ProdutoPrecoService pp;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<ProdutoPreco> listar() {
-		return pp.findAll();
+	public ResponseEntity<?> listar() {
+		List<ProdutoPreco> obj = pp.listar();
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Optional<ProdutoPreco> buscar(@PathVariable("id") Integer id) {
-		return pp.findById(id);
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
+		Optional<ProdutoPreco> obj = pp.buscar(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 }
