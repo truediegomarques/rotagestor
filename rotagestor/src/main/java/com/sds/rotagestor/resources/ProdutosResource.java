@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.Produto;
-import com.sds.rotagestor.repository.ProdutosRepository;
 import com.sds.rotagestor.services.ProdutoService;
 
 import org.springframework.beans.factory.annotation.Autowired;

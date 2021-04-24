@@ -4,9 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sds.rotagestor.domain.SubGrupo;
-import com.sds.rotagestor.repository.SubGruposRepository;
+import com.sds.rotagestor.services.SubGrupoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,16 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class SubGruposResources {
 
 	@Autowired
-	private SubGruposRepository sbr;
+	private SubGrupoService sbs;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public List<SubGrupo> listar() {
-		return sbr.findAll();
+	public ResponseEntity<?> listar() {
+		List<SubGrupo> obj = sbs.listar();
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public Optional<SubGrupo> buscar(@PathVariable("id") Integer id) {
-		return sbr.findById(id);
+	public ResponseEntity<?> buscar(@PathVariable("id") Integer id) {
+		Optional<SubGrupo> obj = sbs.buscar(id);
+		return ResponseEntity.ok().body(obj);
 	}
 
 }
