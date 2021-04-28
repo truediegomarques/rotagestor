@@ -2,8 +2,10 @@ package com.sds.rotagestor.resources;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.sds.rotagestor.domain.Grupo;
+import com.sds.rotagestor.dto.GrupoDTO;
 import com.sds.rotagestor.services.GrupoService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,8 @@ public class GruposResource {
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<?> listar() {
 		List<Grupo> grupos = gs.listar();
-		return ResponseEntity.ok().body(grupos);
+		List<GrupoDTO> gruporetorno = grupos.stream().map(grp -> new GrupoDTO(grp)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(gruporetorno);
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
